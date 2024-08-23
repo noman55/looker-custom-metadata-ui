@@ -9,7 +9,7 @@ const visObject = {
                     color: rgb(28, 34, 38);
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
+                    align-items: flex-start; /* Aligns content to the left */
                     justify-content: flex-start;
                     padding: 20px;
                     gap: 15px;
@@ -19,18 +19,29 @@ const visObject = {
                 }
 
                 .status-box {
-                    background-color: rgba(0, 0, 0, 0.2);
-                    color: white;
                     padding: 5px 10px;
                     border-radius: 5px;
                     text-align: center;
                     margin-bottom: 10px;
                     width: 200px;
+                    border: 2px solid; /* Added border for visual indication */
+                }
+
+                .status-production {
+                    background-color: rgba(0, 255, 0, 0.2); /* Light green background for production */
+                    border-color: green; /* Green border for production */
+                    color: green; /* Green text for production */
+                }
+
+                .status-nonproduction {
+                    background-color: rgba(255, 0, 0, 0.2); /* Light red background for non-production */
+                    border-color: red; /* Red border for non-production */
+                    color: red; /* Red text for non-production */
                 }
 
                 .dashboard-description {
                     font-size: 1.2rem;
-                    text-align: center;
+                    text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                 }
 
@@ -74,8 +85,8 @@ const visObject = {
 
         this.clearErrors();
 
-        if(queryResponse.fields.dimensions.length < 6) {
-            this.addError({title: "Not enough dimensions", message: "This visualization requires 6 dimensions"});
+        if (queryResponse.fields.dimensions.length < 5) {
+            this.addError({title: "Not enough dimensions", message: "This visualization requires 5 dimensions"});
             return;
         }
 
@@ -97,7 +108,7 @@ const visObject = {
 
         // Create status box
         const statusBox = document.createElement("div");
-        statusBox.className = "status-box";
+        statusBox.className = "status-box " + (statusValue === 'production' ? 'status-production' : 'status-nonproduction');
         statusBox.innerText = statusValue === 'production' ? 'Production' : 'Non-Production';
         this._visContainer.appendChild(statusBox);
 
