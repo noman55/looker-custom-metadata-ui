@@ -132,7 +132,11 @@ const visObject = {
         // Create warning info panel
         const warningBox = document.createElement("div");
         warningBox.className = "warning-box";
-        warningBox.innerHTML = `${warningValue}. For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.`;  // Set the warning text
+        // add the warning icon (yellow color icon) and text to the warning box,
+        warningBox.innerHTML = `
+            <span style="color: orange;">⚠️</span>
+            <span style="margin-left: 10px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
+        `;
         this._visContainer.appendChild(warningBox);
 
         // Create dashboard description
