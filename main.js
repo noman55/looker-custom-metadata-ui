@@ -39,8 +39,19 @@ const visObject = {
                     color: red; /* Red text for non-production */
                 }
 
+                .warning-box {
+                    background-color: rgba(255, 255, 0, 0.2); /* Light yellow background for warnings */
+                    border-color: orange; /* Orange border for warnings */
+                    color: orange; /* Orange text for warnings */
+                    padding: 10px;
+                    border-radius: 5px;
+                    margin-bottom: 15px;
+                    width: 100%;
+                    box-shadow: rgba(255, 165, 0, 0.5) 0px 2px 8px; /* Light shadow for the warning box */
+                }
+
                 .dashboard-description {
-                    font-size: 1.2rem;
+                    font-size: 0.7rem;
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                 }
@@ -85,8 +96,8 @@ const visObject = {
 
         this.clearErrors();
 
-        if (queryResponse.fields.dimensions.length < 5) {
-            this.addError({title: "Not enough dimensions", message: "This visualization requires 5 dimensions"});
+        if (queryResponse.fields.dimensions.length < 6) {  // Updated the check to 6 dimensions
+            this.addError({title: "Not enough dimensions", message: "This visualization requires 6 dimensions"});
             return;
         }
 
@@ -94,14 +105,16 @@ const visObject = {
 
         // Extract dimension names
         const statusLabel = queryResponse.fields.dimensions[0].name;
-        const descriptionLabel = queryResponse.fields.dimensions[1].name;
-        const dataOwnerLabel = queryResponse.fields.dimensions[2].name;
-        const businessOwnerLabel = queryResponse.fields.dimensions[3].name;
-        const userVisitsLabel = queryResponse.fields.dimensions[4].name;
+        const warningLabel = queryResponse.fields.dimensions[1].name;
+        const descriptionLabel = queryResponse.fields.dimensions[2].name;  // New dimension for the warning text
+        const dataOwnerLabel = queryResponse.fields.dimensions[3].name;
+        const businessOwnerLabel = queryResponse.fields.dimensions[4].name;
+        const userVisitsLabel = queryResponse.fields.dimensions[5].name;
 
         // Extract data
         const statusValue = data[0][statusLabel].value;
         const descriptionValue = data[0][descriptionLabel].value;
+        const warningValue = data[0][warningLabel].value;  // Extract the warning text
         const dataOwnerValue = data[0][dataOwnerLabel].value;
         const businessOwnerValue = data[0][businessOwnerLabel].value;
         const userVisitsValue = data[0][userVisitsLabel].value;
@@ -111,6 +124,12 @@ const visObject = {
         statusBox.className = "status-box " + (statusValue === 'production' ? 'status-production' : 'status-nonproduction');
         statusBox.innerText = statusValue === 'production' ? 'Production' : 'Non-Production';
         this._visContainer.appendChild(statusBox);
+
+        // Create warning info panel
+        const warningBox = document.createElement("div");
+        warningBox.className = "warning-box";
+        warningBox.innerText = warningValue;  // Set the warning text
+        this._visContainer.appendChild(warningBox);
 
         // Create dashboard description
         const dashboardDescription = document.createElement("div");
