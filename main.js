@@ -34,6 +34,8 @@ const visObject = {
                 }
 
                 .status-nonproduction {
+                    font-weight: bold;
+                    font-size: 0.9rem;
                     background-color: rgba(255, 0, 0, 0.2); /* Light red background for non-production */
                     border-color: red; /* Red border for non-production */
                     color: red; /* Red text for non-production */
@@ -42,6 +44,7 @@ const visObject = {
                 .warning-box {
                     background-color: rgba(255, 255, 0, 0.2); /* Light yellow background for warnings */
                     border-color: orange; /* Orange border for warnings */
+                    font-size: 0.75rem;
                     color: orange; /* Orange text for warnings */
                     padding: 10px;
                     border-radius: 5px;
@@ -51,7 +54,7 @@ const visObject = {
                 }
 
                 .dashboard-description {
-                    font-size: 0.7rem;
+                    font-size: 0.9rem;
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                 }
@@ -115,6 +118,7 @@ const visObject = {
         const statusValue = data[0][statusLabel].value;
         const descriptionValue = data[0][descriptionLabel].value;
         const warningValue = data[0][warningLabel].value;  // Extract the warning text
+
         const dataOwnerValue = data[0][dataOwnerLabel].value;
         const businessOwnerValue = data[0][businessOwnerLabel].value;
         const userVisitsValue = data[0][userVisitsLabel].value;
@@ -128,7 +132,7 @@ const visObject = {
         // Create warning info panel
         const warningBox = document.createElement("div");
         warningBox.className = "warning-box";
-        warningBox.innerText = warningValue;  // Set the warning text
+        arningBox.innerHTML = `${warningValue}. For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.`;  // Set the warning text
         this._visContainer.appendChild(warningBox);
 
         // Create dashboard description
