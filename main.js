@@ -132,7 +132,7 @@ const visObject = {
         // Create warning info panel
         const warningBox = document.createElement("div");
         warningBox.className = "warning-box";
-        arningBox.innerHTML = `${warningValue}. For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.`;  // Set the warning text
+        warningBox.innerHTML = `${warningValue}. For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.`;  // Set the warning text
         this._visContainer.appendChild(warningBox);
 
         // Create dashboard description
