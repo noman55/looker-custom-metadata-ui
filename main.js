@@ -45,8 +45,8 @@ const visObject = {
                 }
 
                 .warning-box {
-                    background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
-                    border-color: yellow; /* Orange border for warnings */
+                    background-color: #FFF9E0; /* Transparent background */
+                    border-color: #FFF9E0; /* Orange border for warnings */
                     font-size: 12px; /* Text size 12px */
                     color: #212121; /* Dark text color */
                     padding: 10px;
@@ -144,7 +144,7 @@ const visObject = {
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
             </svg>
-            <span style="margin-left: 10px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
+            <span style="margin-left: 12px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
         `;
         this._visContainer.appendChild(warningBox);
 
