@@ -26,7 +26,7 @@ const visObject = {
                     font-size: 11px; /* Reduced font size */
                     text-transform: uppercase; /* Make text ALL CAPS */
                     align-items: center;
-                    gap: 5px;
+                    gap: 2px;
                 }
 
                 .status-production {
@@ -58,6 +58,7 @@ const visObject = {
                     margin-bottom: 15px;
                     width: 100%;
                     align-items: center;
+                    gap: 2px;
                 }
 
                 .dashboard-description {
