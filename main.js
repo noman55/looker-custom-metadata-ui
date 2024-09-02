@@ -66,6 +66,7 @@ const visObject = {
                     font-size: 12px
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
+                    font-weight: normal;
                 }
 
                 .widget-container {
