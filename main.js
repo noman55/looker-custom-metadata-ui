@@ -25,6 +25,8 @@ const visObject = {
                     border: 2px solid; /* Added border for visual indication */
                     font-size: 11px; /* Reduced font size */
                     text-transform: uppercase; /* Make text ALL CAPS */
+                    align-items: center;
+                    gap: 5px;
                 }
 
                 .status-production {
@@ -40,8 +42,8 @@ const visObject = {
                 }
 
                 .status-personal {
-                    border-color: #212121; /* Gray border for personal */
-                    color: #212121; /* Gray text color */
+                    border-color: #E6E6E6; /* Gray border for personal */
+                    color: #6B6B6B; /* Gray text color */
                 }
 
                 .warning-box {
@@ -53,6 +55,7 @@ const visObject = {
                     border-radius: 5px;
                     margin-bottom: 15px;
                     width: 100%;
+                    align-items: center;
                 }
 
                 .dashboard-description {
@@ -132,7 +135,10 @@ const visObject = {
             statusValue === 'nonproduction' ? 'status-nonproduction' : 'status-personal'
         );
         statusBox.innerText = statusValue === 'production' ? 'Production' :
-                              statusValue === 'nonproduction' ? 'Non-Production' : 'Personal';
+                              statusValue === 'nonproduction' ? 'Non-Production' : `
+                              <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+    </svg> Personal`;
         this._visContainer.appendChild(statusBox);
 
         // Create warning info panel
