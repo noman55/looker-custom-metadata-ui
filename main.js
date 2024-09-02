@@ -13,39 +13,42 @@ const visObject = {
                     justify-content: flex-start;
                     padding: 20px;
                     gap: 15px;
-                    background-color: #f5f5f5;
                     border-radius: 10px;
-                    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
                 }
 
                 .status-box {
-                    padding: 5px 10px;
+                    padding: 3px 8px; /* Reduced padding for Non-Production */
                     border-radius: 5px;
                     text-align: center;
                     margin-bottom: 10px;
-                    width: 200px;
                     border: 2px solid; /* Added border for visual indication */
+                    font-size: 12px; /* Reduced font size */
+                    text-transform: uppercase; /* Make text ALL CAPS */
                 }
 
                 .status-production {
-                    background-color: rgba(0, 255, 0, 0.2); /* Light green background for production */
-                    border-color: green; /* Green border for production */
-                    color: green; /* Green text for production */
+                    color: green; /* Green text for Production */
+                    border-color: green; /* Green border for Production */
+                    background-color: transparent; /* No background change */
                 }
 
                 .status-nonproduction {
-                    font-weight: bold;
-                    font-size: 0.9rem;
-                    background-color: rgba(255, 0, 0, 0.2); /* Light red background for non-production */
-                    border-color: red; /* Red border for non-production */
-                    color: red; /* Red text for non-production */
+                    color: red; /* Red text for Non-Production */
+                    border-color: red; /* Red border for Non-Production */
+                    background-color: transparent; /* No background change */
+                }
+
+                .status-personal {
+                    color: #212121; /* Dark text for Personal */
+                    border-color: transparent; /* No border for Personal */
+                    background-color: transparent; /* No background change */
                 }
 
                 .warning-box {
-                    background-color: rgba(255, 255, 0, 0.2); /* Light yellow background for warnings */
+                    background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
                     border-color: orange; /* Orange border for warnings */
-                    font-size: 0.75rem;
-                    color: orange; /* Orange text for warnings */
+                    font-size: 12px; /* Text size 12px */
+                    color: #212121; /* Dark text color */
                     padding: 10px;
                     border-radius: 5px;
                     margin-bottom: 15px;
@@ -54,7 +57,7 @@ const visObject = {
                 }
 
                 .dashboard-description {
-                    font-size: 0.9rem;
+                    font-size: 12px
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                 }
@@ -82,7 +85,7 @@ const visObject = {
                 .widget-title {
                     font-weight: bold;
                     margin-bottom: 10px;
-                    font-size: 1rem;
+                    font-size: 12px;
                 }
 
                 .widget-value {
@@ -125,16 +128,23 @@ const visObject = {
 
         // Create status box
         const statusBox = document.createElement("div");
-        statusBox.className = "status-box " + (statusValue === 'production' ? 'status-production' : 'status-nonproduction');
-        statusBox.innerText = statusValue === 'production' ? 'Production' : 'Non-Production';
+        statusBox.className = "status-box " + (
+            statusValue === 'production' ? 'status-production' :
+            statusValue === 'nonproduction' ? 'status-nonproduction' : 'status-personal'
+        );
+        statusBox.innerText = statusValue === 'production' ? 'Production' :
+                              statusValue === 'nonproduction' ? 'Non-Production' : 'Personal';
         this._visContainer.appendChild(statusBox);
 
         // Create warning info panel
         const warningBox = document.createElement("div");
         warningBox.className = "warning-box";
-        // add the warning icon (yellow color icon) and text to the warning box,
+        // Add the warning icon using SVG and text to the warning box
         warningBox.innerHTML = `
-            <span style="color: orange;">⚠️</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" width="16px" height="16px">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
+            </svg>
             <span style="margin-left: 10px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
         `;
         this._visContainer.appendChild(warningBox);
