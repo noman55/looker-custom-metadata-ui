@@ -63,7 +63,7 @@ const visObject = {
                 }
 
                 .dashboard-description {
-                    line-height: 20; /* Increased line height for better readability */
+                    line-height: 1.2; /* Increased line height for better readability */
                     font-size: 12px;
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
