@@ -63,7 +63,7 @@ const visObject = {
                 }
 
                 .dashboard-description {
-                    font-size: 12px
+                    font-size: 12px;
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                     color: rgb(28, 34, 38);
