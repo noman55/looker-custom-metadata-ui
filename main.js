@@ -157,7 +157,7 @@ const visObject = {
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
             </svg>
-            <span style="margin-left: 10px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
+            ${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.
         `;
         this._visContainer.appendChild(warningBox);
 
