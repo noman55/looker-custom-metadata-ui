@@ -101,6 +101,7 @@ const visObject = {
                     width: 16px;
                     height: 16px;
                     margin-right: 5px; /* Add margin to separate icon from text */
+                    color: #6B6B6B; /* Gray color for personal icon */
                 }
             </style>
         `;
