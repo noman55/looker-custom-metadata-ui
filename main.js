@@ -57,8 +57,9 @@ const visObject = {
                     border-radius: 5px;
                     margin-bottom: 15px;
                     width: 100%;
+                    display: flex; /* Added flex display for alignment */
                     align-items: center;
-                    gap: 2px;
+                    gap: 5px;
                 }
 
                 .dashboard-description {
@@ -146,7 +147,7 @@ const visObject = {
         statusBox.innerHTML = statusValue === 'production' ? 'Production' :
                               statusValue === 'nonproduction' ? 'Non-Production' : `
                               <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
                               </svg> Personal`;
         this._visContainer.appendChild(statusBox);
 
@@ -159,7 +160,7 @@ const visObject = {
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
             </svg>
-            ${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.
+            <span>${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
         `;
         this._visContainer.appendChild(warningBox);
 
