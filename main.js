@@ -66,8 +66,8 @@ const visObject = {
                     font-size: 12px
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
-                    font-weight: normal;
                     color: rgb(28, 34, 38);
+                    font-family: Google Sans, Noto Sans, Noto Sans JP, Noto Sans KR, Noto Naskh Arabic, Noto Sans Thai, Noto Sans Hebrew, Noto Sans Bengali, sans-serif;
                 }
 
                 .widget-container {
