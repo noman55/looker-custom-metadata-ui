@@ -67,6 +67,7 @@ const visObject = {
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
                     font-weight: normal;
+                    color: rgb(28, 34, 38);
                 }
 
                 .widget-container {
