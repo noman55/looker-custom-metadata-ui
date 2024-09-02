@@ -36,8 +36,8 @@ const visObject = {
                 }
 
                 .status-nonproduction {
-                    color: red; /* Red text for Non-Production */
-                    border-color: red; /* Red border for Non-Production */
+                    color: #8E1A10; /* Red text for Non-Production */
+                    border-color: #F79A8E; /* Red border for Non-Production */
                     background-color: transparent; /* No background change */
                 }
 
@@ -63,6 +63,7 @@ const visObject = {
                 }
 
                 .dashboard-description {
+                    line-height: 20; /* Increased line height for better readability */
                     font-size: 12px;
                     text-align: left; /* Align description text to the left */
                     margin-bottom: 15px;
