@@ -40,8 +40,8 @@ const visObject = {
                 }
 
                 .status-personal {
-                    border-color: gray; /* Gray border for personal */
-                    color: gray; /* Gray text color */
+                    border-color: #212121; /* Gray border for personal */
+                    color: #212121; /* Gray text color */
                 }
 
                 .warning-box {
@@ -144,7 +144,7 @@ const visObject = {
                 <path d="M0 0h24v24H0z" fill="none"/>
                 <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
             </svg>
-            <span style="margin-left: 12px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
+            <span style="margin-left: 10px;">${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
         `;
         this._visContainer.appendChild(warningBox);
 
