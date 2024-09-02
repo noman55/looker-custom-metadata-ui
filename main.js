@@ -89,7 +89,7 @@ const visObject = {
                 }
 
                 .widget-value {
-                    font-size: 1.5rem;
+                    font-size: 12px;
                     color: rgb(28, 34, 38);
                 }
             </style>
