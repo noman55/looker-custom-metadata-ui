@@ -20,9 +20,10 @@ const visObject = {
                     padding: 3px 8px; /* Reduced padding for Non-Production */
                     border-radius: 5px;
                     text-align: center;
+                    width: auto;
                     margin-bottom: 10px;
                     border: 2px solid; /* Added border for visual indication */
-                    font-size: 12px; /* Reduced font size */
+                    font-size: 11px; /* Reduced font size */
                     text-transform: uppercase; /* Make text ALL CAPS */
                 }
 
@@ -39,21 +40,19 @@ const visObject = {
                 }
 
                 .status-personal {
-                    color: #212121; /* Dark text for Personal */
-                    border-color: transparent; /* No border for Personal */
-                    background-color: transparent; /* No background change */
+                    border-color: gray; /* Gray border for personal */
+                    color: gray; /* Gray text color */
                 }
 
                 .warning-box {
                     background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
-                    border-color: orange; /* Orange border for warnings */
+                    border-color: yellow; /* Orange border for warnings */
                     font-size: 12px; /* Text size 12px */
                     color: #212121; /* Dark text color */
                     padding: 10px;
                     border-radius: 5px;
                     margin-bottom: 15px;
                     width: 100%;
-                    box-shadow: rgba(255, 165, 0, 0.5) 0px 2px 8px; /* Light shadow for the warning box */
                 }
 
                 .dashboard-description {
