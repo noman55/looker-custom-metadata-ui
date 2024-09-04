@@ -167,11 +167,13 @@ const visObject = {
         `;
         this._visContainer.appendChild(warningBox);
 
-        // Create dashboard description
-        const dashboardDescription = document.createElement("div");
-        dashboardDescription.className = "dashboard-description";
-        dashboardDescription.innerText = descriptionValue;
-        this._visContainer.appendChild(dashboardDescription);
+        // Create dashboard description only if it is not empty
+        if (descriptionValue) {
+            const dashboardDescription = document.createElement("div");
+            dashboardDescription.className = "dashboard-description";
+            dashboardDescription.innerText = descriptionValue;
+            this._visContainer.appendChild(dashboardDescription);
+        }
 
         // Create widget container
         const widgetContainer = document.createElement("div");
