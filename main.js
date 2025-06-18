@@ -15,23 +15,37 @@ const visObject = {
                     gap: 15px;
                     border-radius: 10px;
                 }
+                .status-container {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px; /* Adjust gap between status and warning */
+                    margin-bottom: 15px; /* Margin for spacing from other content */
+                    width: 100%; /* Full width to ensure proper alignment */
+                }
 
                 .status-box {
-                    padding: 3px 8px; /* Reduced padding for Non-Production */
+                    padding: 4px 4px; /* Reduced padding for Non-Production */
                     border-radius: 5px;
                     text-align: center;
                     width: auto;
-                    margin-bottom: 10px;
                     border: 2px solid; /* Added border for visual indication */
                     font-size: 11px; /* Reduced font size */
                     text-transform: uppercase; /* Make text ALL CAPS */
                     align-items: center;
                     gap: 2px;
+                    // white-space: nowrap;
                 }
 
                 .status-production {
                     color: green; /* Green text for Production */
                     border-color: green; /* Green border for Production */
+                    background-color: transparent; /* No background change */
+                }
+
+                .status-nongotodashboard {
+                   /* Organe text for non-go-to-dashboard */
+                    color: #F79A8E; /* Orange text for Non-Go-To-Dashboard */
+                    border-color: #F79A8E; /* Orange border for Non-Go-To-Dashboard */
                     background-color: transparent; /* No background change */
                 }
 
@@ -51,7 +65,7 @@ const visObject = {
                 .warning-box {
                     background-color: #FFF9E0; /* Transparent background */
                     border-color: #FFF9E0; /* Orange border for warnings */
-                    font-size: 12px; /* Text size 12px */
+                    font-size: 11px; /* Text size 12px */
                     color: #212121; /* Dark text color */
                     padding: 10px;
                     border-radius: 5px;
@@ -100,6 +114,10 @@ const visObject = {
                 .widget-value {
                     font-size: 12px;
                     color: rgb(28, 34, 38);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 4px 4px;
                 }
                 .person-icon {
                     width: 16px;
@@ -141,44 +159,48 @@ const visObject = {
         const businessOwnerValue = data[0][businessOwnerLabel].value;
         const userVisitsValue = data[0][userVisitsLabel].value;
 
-        // Create status box
-        const statusBox = document.createElement("div");
-        statusBox.className = "status-box " + (
-            statusValue === 'production' ? 'status-production' :
-            statusValue === 'nonproduction' ? 'status-nonproduction' : 'status-personal'
-        );
-        statusBox.innerHTML = statusValue === 'production' ? 'Production' :
-                              statusValue === 'nonproduction' ? 'Non-Production' : `
-                              <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
-                              </svg> Personal`;
-        this._visContainer.appendChild(statusBox);
-
-        // Create warning info panel
-        const warningBox = document.createElement("div");
-        warningBox.className = "warning-box";
-        // Add the warning icon using SVG and text to the warning box
-        warningBox.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" width="16px" height="16px">
-                <path d="M0 0h24v24H0z" fill="none"/>
-                <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
-            </svg>
-            <span>${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
-        `;
-        this._visContainer.appendChild(warningBox);
-
-        // Create dashboard description only if it is not empty
-        if (descriptionValue) {
-            const dashboardDescription = document.createElement("div");
-            dashboardDescription.className = "dashboard-description";
-            dashboardDescription.innerText = descriptionValue;
-            this._visContainer.appendChild(dashboardDescription);
+        if (warningValue) {
+            // Create warning info panel
+            const warningBox = document.createElement("div");
+            warningBox.className = "warning-box";
+                // Add the warning icon using SVG and text to the warning box
+            warningBox.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="orange" viewBox="0 0 24 24" width="16px" height="16px">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M1 21h22L12 2 1 21zM12 16h-1v-1h1v1zm0-2h-1v-4h1v4z"/>
+                </svg>
+                <span>${warningValue} For metrics accuracy, please refer to <a href="https://postman.looker.com/looks/4485" target="_blank">go-to dashboards</a>.</span>
+            `;
+            this._visContainer.appendChild(warningBox);
         }
+
+        // this._visContainer.appendChild(statusBox);
 
         // Create widget container
         const widgetContainer = document.createElement("div");
         widgetContainer.className = "widget-container";
 
+        // Status Widget
+        const dashboardStatusWidget = document.createElement("div");
+        dashboardStatusWidget.className = "widget";
+        // append status box to the widget
+        dashboardStatusWidget.innerHTML = `
+            <div class="widget-title">Dashboard Type</div>
+            <div class="status-box ${
+                    statusValue === 'Go-To Dashboard' ? 'status-production' :
+                    statusValue === 'Yellow' ? 'status-nongotodashboard' :
+                    statusValue === 'nonproduction' ? 'status-nonproduction' : 'status-personal'}">
+                    ${
+                    statusValue === 'Go-To Dashboard' ? 'Go-To' :
+                    statusValue === 'Yellow' ? 'Non-GoTo' :
+                     statusValue === 'nonproduction' ? 'Non-Production' : `
+                     <svg class="person-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor"/>
+                     </svg> Personal`}
+            </div>
+        `;
+
+        widgetContainer.appendChild(dashboardStatusWidget);
         // Data Owner Widget
         const dataOwnerWidget = document.createElement("div");
         dataOwnerWidget.className = "widget";
@@ -201,13 +223,22 @@ const visObject = {
         const userVisitsWidget = document.createElement("div");
         userVisitsWidget.className = "widget";
         userVisitsWidget.innerHTML = `
-            <div class="widget-title">User Visits (Last 90 Days)</div>
+            <div class="widget-title">Users Visited (Last 90 Days)</div>
             <div class="widget-value">${userVisitsValue}</div>
         `;
         widgetContainer.appendChild(userVisitsWidget);
 
         // Append widget container to main container
         this._visContainer.appendChild(widgetContainer);
+
+
+        // Create dashboard description only if it is not empty
+        if (descriptionValue) {
+            const dashboardDescription = document.createElement("div");
+            dashboardDescription.className = "dashboard-description";
+            dashboardDescription.innerText = descriptionValue;
+            this._visContainer.appendChild(dashboardDescription);
+        }
 
         doneRendering();
     }
