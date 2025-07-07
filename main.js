@@ -236,7 +236,9 @@ const visObject = {
         if (descriptionValue) {
             const dashboardDescription = document.createElement("div");
             dashboardDescription.className = "dashboard-description";
-            dashboardDescription.innerText = descriptionValue;
+            dashboardDescription.innerHTML = `
+            <span>${descriptionValue}</span>
+            `
             this._visContainer.appendChild(dashboardDescription);
         }
 
