@@ -72,11 +72,11 @@ const visObject = {
                 .tree-item {
                     display: flex;
                     align-items: center;
-                    padding: 8px 0;
+                    padding: 12px 16px;
                     cursor: pointer;
                     transition: background-color 0.2s;
-                    border-radius: 4px;
-                    margin: 2px 0;
+                    border-bottom: 1px solid #e0e0e0;
+                    position: relative;
                 }
 
                 .tree-item:hover {
@@ -88,14 +88,18 @@ const visObject = {
                     font-weight: 500;
                 }
 
-                .tree-indent {
-                    width: 20px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
+                .tree-item:last-child {
+                    border-bottom: none;
                 }
 
                 .tree-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+
+                .tree-left {
                     display: flex;
                     align-items: center;
                     flex: 1;
@@ -106,6 +110,8 @@ const visObject = {
                     font-size: 14px;
                     color: #666;
                     transition: transform 0.2s;
+                    width: 16px;
+                    text-align: center;
                 }
 
                 .tree-arrow.expanded {
@@ -113,17 +119,17 @@ const visObject = {
                 }
 
                 .tree-name {
-                    flex: 1;
                     font-size: 14px;
+                    color: #333;
                 }
 
                 .tree-count {
                     background-color: #f5f5f5;
                     color: #666;
-                    padding: 2px 8px;
+                    padding: 4px 8px;
                     border-radius: 12px;
                     font-size: 12px;
-                    margin-left: 8px;
+                    margin-right: 8px;
                 }
 
                 .tree-link {
@@ -262,21 +268,26 @@ const visObject = {
             const content = document.createElement("div");
             content.className = "tree-content";
 
+            const leftDiv = document.createElement("div");
+            leftDiv.className = "tree-left";
+
             if (isExpandable) {
                 const arrow = document.createElement("span");
                 arrow.className = `tree-arrow ${isExpanded ? 'expanded' : ''}`;
                 arrow.textContent = "▶";
-                content.appendChild(arrow);
+                leftDiv.appendChild(arrow);
             } else {
                 const spacer = document.createElement("span");
-                spacer.style.width = "22px";
-                content.appendChild(spacer);
+                spacer.style.width = "24px";
+                leftDiv.appendChild(spacer);
             }
 
             const nameSpan = document.createElement("span");
             nameSpan.className = "tree-name";
             nameSpan.textContent = name;
-            content.appendChild(nameSpan);
+            leftDiv.appendChild(nameSpan);
+
+            content.appendChild(leftDiv);
 
             if (count !== undefined) {
                 const countSpan = document.createElement("span");
@@ -438,6 +449,9 @@ const visObject = {
             const treeItem = e.target.closest('.tree-item');
             
             if (arrow || (treeItem && treeItem.style.cursor === 'pointer')) {
+                e.preventDefault();
+                e.stopPropagation();
+                
                 const item = arrow ? arrow.closest('.tree-item') : treeItem;
                 const container = item.nextElementSibling;
                 
