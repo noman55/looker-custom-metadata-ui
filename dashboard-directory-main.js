@@ -285,6 +285,7 @@ const visObject = {
                 content.appendChild(countSpan);
             }
 
+            // Only make it clickable if it's a dashboard link
             if (linkData) {
                 const link = document.createElement("a");
                 link.className = "tree-link";
@@ -309,15 +310,19 @@ const visObject = {
                 };
             } else {
                 item.appendChild(content);
+                // Add click handler for expandable items
+                if (isExpandable) {
+                    item.style.cursor = "pointer";
+                }
             }
 
             return item;
         }
 
         // Create collapsible container
-        const createCollapsible = (items) => {
+        const createCollapsible = (items, isExpanded = false) => {
             const container = document.createElement("div");
-            container.className = "collapsible expanded";
+            container.className = `collapsible ${isExpanded ? 'expanded' : 'collapsed'}`;
             items.forEach(item => container.appendChild(item));
             return container;
         }
@@ -359,31 +364,31 @@ const visObject = {
             Object.keys(sectionData).forEach(secondKey => {
                 const secondData = sectionData[secondKey];
                 const secondCount = Object.values(secondData).reduce((sum, arr) => sum + arr.length, 0);
-
+                
                 const secondItem = createTreeItem(
                     `${itemCounter}. ${secondKey}`,
                     secondCount,
                     0,
                     true,
-                    true
+                    false // Start collapsed
                 );
 
-                const secondContainer = createCollapsible([]);
+                const secondContainer = createCollapsible([], false); // Start collapsed
 
                 // Process third level
                 Object.keys(secondData).forEach(thirdKey => {
                     const thirdData = secondData[thirdKey];
                     const thirdCount = thirdData.length;
-
+                    
                     const thirdItem = createTreeItem(
                         thirdKey,
                         thirdCount,
                         1,
                         true,
-                        true
+                        false // Start collapsed
                     );
 
-                    const thirdContainer = createCollapsible([]);
+                    const thirdContainer = createCollapsible([], false); // Start collapsed
 
                     // Process fourth level (actual dashboards)
                     thirdData.forEach(row => {
@@ -400,6 +405,13 @@ const visObject = {
                         // Highlight current dashboard
                         if (currentDashboardTitle && currentDashboardTitle === row['fourthValue'].value) {
                             dashboardItem.classList.add('current');
+                            // Auto-expand to show current dashboard
+                            secondContainer.classList.remove('collapsed');
+                            secondContainer.classList.add('expanded');
+                            secondItem.querySelector('.tree-arrow').classList.add('expanded');
+                            thirdContainer.classList.remove('collapsed');
+                            thirdContainer.classList.add('expanded');
+                            thirdItem.querySelector('.tree-arrow').classList.add('expanded');
                         }
 
                         thirdContainer.appendChild(dashboardItem);
@@ -421,20 +433,26 @@ const visObject = {
 
         // Add click handlers for expand/collapse
         this._visContainer.addEventListener('click', (e) => {
+            // Check if clicking on arrow or the tree item itself
             const arrow = e.target.closest('.tree-arrow');
-            if (arrow) {
-                const item = arrow.closest('.tree-item');
+            const treeItem = e.target.closest('.tree-item');
+            
+            if (arrow || (treeItem && treeItem.style.cursor === 'pointer')) {
+                const item = arrow ? arrow.closest('.tree-item') : treeItem;
                 const container = item.nextElementSibling;
+                
                 if (container && container.classList.contains('collapsible')) {
                     const isExpanded = container.classList.contains('expanded');
+                    const itemArrow = item.querySelector('.tree-arrow');
+                    
                     if (isExpanded) {
                         container.classList.remove('expanded');
                         container.classList.add('collapsed');
-                        arrow.classList.remove('expanded');
+                        if (itemArrow) itemArrow.classList.remove('expanded');
                     } else {
                         container.classList.remove('collapsed');
                         container.classList.add('expanded');
-                        arrow.classList.add('expanded');
+                        if (itemArrow) itemArrow.classList.add('expanded');
                     }
                 }
             }
